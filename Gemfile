@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
-
+gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record
@@ -14,6 +14,7 @@ gem 'jsonapi-serializable'
 gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
 gem 'trailblazer-rails'
 gem 'jsonapi-rails', github: 'jsonapi-rb/jsonapi-rails'
+gem 'jwt'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
