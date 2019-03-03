@@ -1,19 +1,9 @@
-module Api
-  module V1
-    module Users
-      module Operation
-        class Create < Trailblazer::Operation
-          step Model(User, :new)
-          step self::Contract::Build(constant: Users::Contract::Create)
-          step self::Contract::Validate()
-          step self::Contract::Persist()
-
-          def send_confirmation
-            redirect_to = ctx['contract.default'].redirect_to
-            UserMailer.confirmation(model, redirect_to).deliver_later
-          end
-        end
-      end
-    end
+module Api::V1::Users::Operation
+  class Create < Trailblazer::Operation
+    step Model(User, :new)
+    step Contract::Build(constant: Api::V1::Users::Contract::Create)
+    step Contract::Validate()
+    step Contract::Persist()
+    step Api::V1::Users::Lib::GenerateToken
   end
 end
