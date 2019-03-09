@@ -25,8 +25,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_153632) do
     t.string "first_name"
     t.string "last_name"
     t.string "email", default: "", null: false
-    t.string "password", default: "", null: false
-    t.string "password_confirmation", default: "", null: false
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

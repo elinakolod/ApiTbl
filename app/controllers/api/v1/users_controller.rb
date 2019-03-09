@@ -4,6 +4,10 @@ module Api::V1
       endpoint operation: Users::Operation::Create, &user_response_handler
     end
 
+    def login
+      endpoint operation: Users::Operation::Login, &user_response_handler
+    end
+
     private
 
     def user_response_handler
