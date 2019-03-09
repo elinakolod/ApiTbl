@@ -89,4 +89,4 @@ en:
             range: "length must be within %{size_left} - %{size_right}"
     rules:
       user:
-        unique?: 'such email already exists'
+        email_unique?: 'such email already exists'

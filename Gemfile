@@ -12,8 +12,9 @@ gem 'puma', '~> 3.11'
 gem 'dry-validation', '0.11.1'
 gem 'jsonapi-serializable'
 gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
+gem 'simple_endpoint', github: 'differencialx/simple_endpoint', :branch => 'master'
 gem 'trailblazer-rails'
-gem 'jsonapi-rails', github: 'jsonapi-rb/jsonapi-rails'
+gem 'jsonapi-rails'
 gem 'jwt'
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -27,6 +28,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'ffaker'
+  gem 'factory_bot_rails'
+  gem 'pry-byebug'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -40,6 +44,7 @@ end
 group :test do
   gem 'dox', require: false
   gem 'json_matchers'
+  gem 'airborne'
 end
 
 
