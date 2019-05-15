@@ -4,17 +4,10 @@ class ApplicationController < ActionController::API
   private
 
   def default_handler
-    -> (kase, result) do
-      case kase
-      when :success
-        render jsonapi: result[:model], **result[:renderer_options], status: :created
-      when :invalid
-        render json: json_api_errors(result['contract.default'].errors.messages),
-               status: :unprocessable_entity
-      else
-        raise SimpleEndpoint::UnhadledResultError, 'fuck you too'
-      end
-    end
+    {
+      success: -> (result) { render jsonapi: result[:model], **result[:renderer_options], status: :created },
+      invalid: -> (result) { render json: json_api_errors(result['contract.default'].errors.messages), status: :unprocessable_entity }
+    }
   end
 
   def default_cases

@@ -19,7 +19,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'returns 422' do
         expect_status '422'
         expect_json('errors.0.title', 'User')
-        expect_json('errors.0.detail', 'email or password are invalid')
+        expect_json('errors.0.detail', 'fucking shit')
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'returns 422' do
         expect_status '422'
         expect_json('errors.0.title', 'User')
-        expect_json('errors.0.detail', 'email or password are invalid')
+        expect_json('errors.0.detail', 'fucking shit')
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         request
         expect_status '422'
         expect_json('errors.0.title', 'Email')
-        expect_json('errors.0.detail', 'user with such email already exists')
+        expect_json('errors.0.detail', 'such email already exists')
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         request
         expect_status '422'
         expect_json('errors.0.title', 'Password confirmation')
-        expect_json('errors.0.detail', 'must be equal to password')
+        expect_json('errors.0.detail', 'must be equal to DirtyBitch1')
       end
     end
 
@@ -83,6 +83,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       let(:email) { 'learnenglish@mail.com' }
 
       it 'creates User' do
+        user
         expect { request }.to change { User.count }.by(1)
         expect_status 201
         expect(response.headers['Authorization']).to be_present

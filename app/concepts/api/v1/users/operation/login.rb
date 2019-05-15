@@ -5,6 +5,7 @@ module Api::V1::Users::Operation
     step :find
     step :authenticate!
     fail :errors!
+    step Api::V1::Users::Lib::GenerateToken
     step Api::V1::Users::Lib::RendererOptions
 
     def find(options, params:, **)

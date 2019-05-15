@@ -15,7 +15,7 @@ module Jwt::Operation
         Rails.application.credentials[:secret_key_base],
         'HS256'
       )
-      options[:token] = token
+      options[:json_web_token] = token
     end
   end
 end

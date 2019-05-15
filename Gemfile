@@ -45,7 +45,7 @@ end
 group :test do
   gem 'dox', require: false
   gem 'json_matchers'
-  gem 'airborne'
+  gem 'airborne', '0.2.13'
 end
 
 
