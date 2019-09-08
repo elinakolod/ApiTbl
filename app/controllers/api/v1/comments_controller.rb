@@ -7,6 +7,7 @@ module Api
 
       def destroy
         Comment.find(params[:id]).destroy
+        head :no_content
       end
     end
   end

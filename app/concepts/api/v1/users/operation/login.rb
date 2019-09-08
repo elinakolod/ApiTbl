@@ -17,7 +17,7 @@ module Api::V1::Users::Operation
     end
 
     def errors!(options, params:, **)
-      options['contract.default'].errors.add(:user, 'fucking shit')
+      options['contract.default'].errors.add(:user, 'email or password are invalid')
     end
   end
 end

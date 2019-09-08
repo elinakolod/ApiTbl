@@ -11,6 +11,7 @@ module Api
 
       def destroy
         Task.find(params[:id]).destroy
+        head :no_content
       end
     end
   end
