@@ -6,6 +6,12 @@ Rails.application.routes.draw do
           post :login
         end
       end
+
+      resource :projects, only: %i[create destroy]
+
+      resource :tasks, only: %i[create update destroy]
+
+      resource :comments, only: %i[create destroy]
     end
   end
 end
