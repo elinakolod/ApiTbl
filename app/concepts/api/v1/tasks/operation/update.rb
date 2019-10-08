@@ -1,13 +1,14 @@
-class Api::V1::Tasks::Operation::Update < Trailblazer::Operation
-  step :find_model
-  step :mark_as_done!
-  step Api::V1::Tasks::Lib::RendererOptions
-
-  def find_model(ctx, params:, **)
-    ctx['task'] = Task.find_by(id: params[:id])
-  end
-
-  def mark_as_done!(_ctx, task:, **)
-    task.update(done: true)
+module Api
+  module V1
+    module Tasks::Operation
+      class Update < Trailblazer::Operation
+        step Model(Task, :find_by)
+        step Policy::Pundit(TaskPolicy, :update?)
+        step Contract::Build(constant: Tasks::Contract::Update)
+        step Contract::Validate()
+        step Contract::Persist()
+        step Api::V1::Tasks::Operation::RendererOptions
+      end
+    end
   end
 end

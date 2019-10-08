@@ -1,13 +1,21 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
+      before_action :authorize_access_request!
+
       def create
-        endpoint operation: Projects::Operation::Create, options: { params: params }
+        endpoint operation: Projects::Operation::Create,
+                 options: { current_user: current_user }
+      end
+
+      def update
+        endpoint operation: Projects::Operation::Update,
+                 options: { current_user: current_user }
       end
 
       def destroy
-        Project.find(params[:id]).destroy
-        head :no_content
+        endpoint operation: Projects::Operation::Destroy,
+                 options: { current_user: current_user }
       end
     end
   end

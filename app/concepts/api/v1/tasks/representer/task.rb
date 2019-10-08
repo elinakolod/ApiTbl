@@ -3,8 +3,8 @@ module Api
     module Tasks::Representer
       class Task < JSONAPI::Serializable::Resource
         type 'task'
-        attributes :id, :name, :done
-        has_many :comments
+
+        attributes :name, :done
       end
     end
   end

@@ -7,11 +7,17 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :projects, only: %i[create destroy]
+      resource :signups, only: %i[create]
 
-      resource :tasks, only: %i[create update destroy]
+      resource :refreshs, only: %i[create]
 
-      resource :comments, only: %i[create destroy]
+      resource :signins, only: %i[create]
+
+      resources :projects, only: %i[index create update destroy] do
+        resources :tasks, only: %i[create update destroy], shallow: true do
+          resources :comments, only: %i[create destroy], shallow: true
+        end
+      end
     end
   end
 end
