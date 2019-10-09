@@ -6,7 +6,7 @@ module Api
         step Policy::Pundit(TaskPolicy, :destroy?)
         step :destroy!
 
-        def destroy!(_ctx, model:,  **)
+        def destroy!(_ctx, model:, **)
           model.destroy
         end
       end

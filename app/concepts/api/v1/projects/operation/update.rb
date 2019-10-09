@@ -9,12 +9,12 @@ module Api
         step :update_project
         step Api::V1::Projects::Operation::RendererOptions
 
-        def find_project(ctx, params:, user:, **)
-          ctx[:model] = user.projects.find(params[:id])
+        def find_project(ctx, params:, current_user:, **)
+          ctx[:model] = current_user.projects.find(params[:id])
         end
 
         def update_project(_ctx, model:, params:, **)
-          model.update(name: params[:project][:name])
+          model.update(name: params[:name])
         end
       end
     end

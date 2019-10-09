@@ -10,8 +10,8 @@ module Api
         step Contract::Persist()
         step Projects::Operation::RendererOptions
 
-        def set_user(_ctx, model:, user:, **)
-          model.user = user
+        def set_user(_ctx, model:, current_user:, **)
+          model.user = current_user
         end
       end
     end

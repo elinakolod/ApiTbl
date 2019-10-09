@@ -4,11 +4,11 @@ module Api
       before_action :authorize_access_request!
 
       def create
-        endpoint operation: Tasks::Operation::Create, options: { params: params }
+        endpoint operation: Tasks::Operation::Create, options: { current_user: current_user }
       end
 
       def update
-        endpoint operation: Tasks::Operation::Update, options: { params: params }
+        endpoint operation: Tasks::Operation::Update, options: { current_user: current_user }
       end
 
       def destroy

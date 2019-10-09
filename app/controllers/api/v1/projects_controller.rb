@@ -3,6 +3,11 @@ module Api
     class ProjectsController < ApplicationController
       before_action :authorize_access_request!
 
+      def index
+        endpoint operation: Projects::Operation::Index,
+                 options: { current_user: current_user }
+      end
+
       def create
         endpoint operation: Projects::Operation::Create,
                  options: { current_user: current_user }

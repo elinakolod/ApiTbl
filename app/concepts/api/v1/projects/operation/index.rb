@@ -5,7 +5,7 @@ module Api
         step :fetch_collection!
         step Projects::Operation::RendererOptions
 
-        def fetch_collection!(_ctx, current_user:, **)
+        def fetch_collection!(ctx, current_user:, **)
           ctx[:model] = current_user.projects
         end
       end
