@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include ActionController::Cookies
+  include ActionController::RequestForgeryProtection
   include SimpleEndpoint::Controller
   include JWTSessions::RailsAuthorization
   include Pundit

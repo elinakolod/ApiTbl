@@ -8,7 +8,9 @@ module Api
           ctx[:renderer_options] = {
             class: {
               Project: Api::V1::Projects::Representer::Project,
-              User: Api::V1::Users::Representer::Authentication
+              User: Api::V1::Users::Representer::Authentication,
+              Task: Api::V1::Tasks::Representer::Task,
+              Comment: Api::V1::Comments::Representer::Comment
             },
             include: [:user, tasks: [:comments]]
           }

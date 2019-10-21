@@ -4,6 +4,9 @@ module Api
       class Task < JSONAPI::Serializable::Resource
         type 'task'
 
+        belongs_to :project, serializer: Projects::Representer::Project
+        has_many :comments, serializer: Comments::Representer::Comment
+
         attributes :name, :done
       end
     end
