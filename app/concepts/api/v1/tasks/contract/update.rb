@@ -8,8 +8,8 @@ module Api
         property :done
 
         validation do
-          required(:name).filled(:str?)
-          required(:done).filled(:bool?)
+          optional(:name).filled(:str?)
+          optional(:done).filled(:bool?)
         end
       end
     end

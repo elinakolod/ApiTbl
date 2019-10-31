@@ -6,7 +6,7 @@ module Api
 
         belongs_to :task, serializer: Tasks::Representer::Task
 
-        attributes :body, :created_at
+        attributes :body, :created_at, :task_id
       end
     end
   end
