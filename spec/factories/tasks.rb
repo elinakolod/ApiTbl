@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :task do
-    name { "MyString" }
-    project { nil }
+    name { 'name' }
+    done { false }
+    project
   end
 end

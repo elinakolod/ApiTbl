@@ -1,6 +1,19 @@
-class Api::V1::Projects::Operation::Create < Trailblazer::Operation
-  step Contract::Build(constant: Api::V1::Projects::Contract::Create)
-  step Contract::Validate(key: :project)
-  step Contract::Persist()
-  step Api::V1::Projects::Lib::RendererOptions
+module Api
+  module V1
+    module Projects::Operation
+      class Create < Trailblazer::Operation
+        step Model(Project, :new)
+        step :set_user
+        step Policy::Pundit(ProjectPolicy, :create?)
+        step Contract::Build(constant: Projects::Contract::Create)
+        step Contract::Validate()
+        step Contract::Persist()
+        step Projects::Operation::RendererOptions
+
+        def set_user(_ctx, model:, current_user:, **)
+          model.user = current_user
+        end
+      end
+    end
+  end
 end

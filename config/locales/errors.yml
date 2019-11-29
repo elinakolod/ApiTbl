@@ -90,3 +90,5 @@ en:
     rules:
       user:
         email_unique?: 'such email already exists'
+      signin:
+        email_exists?: such email does not exist

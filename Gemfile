@@ -13,10 +13,13 @@ gem 'puma', '~> 3.11'
 gem 'dry-validation', '0.11.1'
 gem 'jsonapi-serializable'
 gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
+gem 'pundit'
 gem 'simple_endpoint', github: 'differencialx/simple_endpoint', :branch => 'master'
 gem 'trailblazer-rails'
 gem 'jsonapi-rails'
+gem 'jwt_sessions'
 gem 'jwt'
+gem 'rack-cors'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

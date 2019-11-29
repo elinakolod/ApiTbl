@@ -1,15 +1,15 @@
 module Api
   module V1
     module Tasks::Contract
-      class Create < Reform::Form
+      class Update < Reform::Form
         include Dry
 
         property :name
-        property :project_id
+        property :done
 
         validation do
-          required(:name).filled(:str?)
-          required(:project_id).filled(:int?)
+          optional(:name).filled(:str?)
+          optional(:done).filled(:bool?)
         end
       end
     end

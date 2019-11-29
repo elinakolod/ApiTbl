@@ -3,8 +3,11 @@ module Api
     module Projects::Representer
       class Project < JSONAPI::Serializable::Resource
         type 'projects'
-        attributes :id, :name, :created_at
-        has_many :tasks
+
+        belongs_to :user, serializer: Users::Representer::Authentication
+        has_many :tasks, serializer: Tasks::Representer::Task
+
+        attributes :name, :created_at
       end
     end
   end
