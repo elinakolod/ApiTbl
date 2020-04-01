@@ -82,6 +82,10 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise_token_auth (1.1.3)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 6.1)
     diff-lcs (1.3)
     disposable (0.4.4)
       declarative (>= 0.0.9, < 1.0.0)
@@ -137,6 +141,10 @@ GEM
       railties
       sprockets-rails
     graphql (1.10.4)
+    graphql_devise (0.10.1)
+      devise_token_auth (>= 0.1.43)
+      graphql (>= 1.8)
+      rails (>= 4.2)
     hirb (0.7.3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -344,6 +352,7 @@ DEPENDENCIES
   ffaker
   graphiql-rails
   graphql
+  graphql_devise
   json_matchers
   jsonapi-rails
   jsonapi-serializable

@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      before_action :authorize_access_request!
+      #before_action :authenticate_user!
 
       def create
         endpoint operation: Comments::Operation::Create,

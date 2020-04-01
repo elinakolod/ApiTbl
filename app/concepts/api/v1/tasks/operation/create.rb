@@ -4,7 +4,7 @@ module Api
       class Create < Trailblazer::Operation
         step Model(Task, :new)
         step :set_project
-        step Policy::Pundit(TaskPolicy, :create?)
+        #step Policy::Pundit(TaskPolicy, :create?)
         step Contract::Build(constant: Tasks::Contract::Create)
         step Contract::Validate()
         step Contract::Persist()

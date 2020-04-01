@@ -2,8 +2,9 @@ module Api
   module V1
     module Projects::Operation
       class Update < Trailblazer::Operation
-        step :find_project
-        step Policy::Pundit(ProjectPolicy, :update?)
+        #step :find_project
+        step Model(Project, :find_by)
+        #step Policy::Pundit(ProjectPolicy, :update?)
         step Contract::Build(constant: Projects::Contract::Create)
         step Contract::Validate()
         step :update_project

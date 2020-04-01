@@ -1,7 +1,7 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
-      before_action :authorize_access_request!
+      #before_action :authenticate_user!
 
       def index
         endpoint operation: Projects::Operation::Index,
