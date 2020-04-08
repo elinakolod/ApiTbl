@@ -1,8 +1,6 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
-      #before_action :authenticate_user!
-
       def index
         endpoint operation: Projects::Operation::Index,
                  options: { current_user: current_user }

@@ -1,8 +1,6 @@
 module Api
   module V1
     class TasksController < ApplicationController
-      #before_action :authenticate_user!
-
       def create
         endpoint operation: Tasks::Operation::Create, options: { current_user: current_user }
       end
