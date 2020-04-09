@@ -6,6 +6,7 @@ RSpec.describe 'Create Task', type: :request do
   let(:project_id) { project.id }
   let(:task) { build(:task) }
   let(:name) { task.name }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
       mutation {
@@ -24,7 +25,7 @@ RSpec.describe 'Create Task', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   context 'valid name' do
     it 'creates task' do

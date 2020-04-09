@@ -5,6 +5,7 @@ RSpec.describe 'All user projects', type: :request do
   let(:project) { create(:project, user: user) }
   let(:task) { create(:task, project: project) }
   let(:comment) { create(:comment, task: task) }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
         query {
@@ -30,7 +31,7 @@ RSpec.describe 'All user projects', type: :request do
 
   before do
     comment
-    post graphql_path, params: { query: query }
+    post graphql_path, params: { query: query }, headers: headers
   end
 
   it 'returns all user projects with tasks and comments' do

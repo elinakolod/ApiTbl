@@ -6,6 +6,7 @@ RSpec.describe 'Destroy Comment', type: :request do
   let(:task) { create(:task, project: project) }
   let(:comment_id) { comment.id }
   let(:comment) { create(:comment, task: task) }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
       mutation {
@@ -20,7 +21,7 @@ RSpec.describe 'Destroy Comment', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   before do
     comment

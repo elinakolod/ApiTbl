@@ -7,6 +7,7 @@ RSpec.describe 'Create Comment', type: :request do
   let(:task_id) { task.id }
   let(:comment) { build(:comment) }
   let(:body) { comment.body }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
       mutation {
@@ -24,7 +25,7 @@ RSpec.describe 'Create Comment', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   context 'valid body' do
     it 'creates comment' do

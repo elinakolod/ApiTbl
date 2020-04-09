@@ -5,6 +5,7 @@ RSpec.describe 'Destroy Task', type: :request do
   let(:project) { create(:project, user: user) }
   let(:task) { create(:task, project: project) }
   let(:task_id) { task.id }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
       mutation {
@@ -19,7 +20,7 @@ RSpec.describe 'Destroy Task', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   before do
     task

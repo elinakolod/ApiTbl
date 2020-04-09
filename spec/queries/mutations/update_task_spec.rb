@@ -6,6 +6,7 @@ RSpec.describe 'Update Task', type: :request do
   let(:task) { create(:task, project: project, done: false) }
   let(:task_id) { task.id }
   let(:new_name) { 'new_name' }
+  let(:headers) { user.create_new_auth_token }
   let(:new_done) { true }
   let(:query) do
     <<-GRAPHQL
@@ -22,7 +23,7 @@ RSpec.describe 'Update Task', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   before do
     task

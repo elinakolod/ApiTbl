@@ -5,13 +5,13 @@ RSpec.describe 'Create Project', type: :request do
   let(:user_id) { user.id }
   let(:project) { build(:project) }
   let(:name) { project.name }
+  let(:headers) { user.create_new_auth_token }
   let(:query) do
     <<-GRAPHQL
       mutation {
         createProject( input:
           {
-            name: "#{name}",
-            userId: #{user_id}
+            name: "#{name}"
           })
           {
             project {
@@ -22,7 +22,7 @@ RSpec.describe 'Create Project', type: :request do
       }
     GRAPHQL
   end
-  let(:request) { post(graphql_path, params: { query: query }) }
+  let(:request) { post(graphql_path, params: { query: query }, headers: headers) }
 
   context 'valid name' do
     it 'creates project' do
