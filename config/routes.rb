@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   mount_graphql_devise_for 'User', at: 'auth'
 
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
-  end
+  root to: "graphql#execute"
+
+  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
 
   post "graphql", to: "graphql#execute"
+
+  get 'health', to: proc { [200, {}, ['success']] }
 
   namespace :api do
     namespace :v1 do

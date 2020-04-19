@@ -22,7 +22,7 @@ gem 'jsonapi-rails'
 gem 'jwt_sessions'
 gem 'jwt'
 gem 'rack-cors'
-
+gem "graphiql-rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
@@ -46,7 +46,6 @@ group :development do
   gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop'
-  gem "graphiql-rails"
 end
 
 group :test do
