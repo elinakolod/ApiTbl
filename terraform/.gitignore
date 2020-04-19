@@ -1,0 +1,7 @@
+.terraform
+ssh_keys
+ssl_certificates
+
+*.tfstate
+*.tfstate.backup
+*.auto.tfvars

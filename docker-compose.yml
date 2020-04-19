@@ -16,15 +16,15 @@ services:
     env_file: .env
     environment:
       RAILS_ENV: development
-    entrypoint: ./entrypoints/docker-entrypoint.sh
+    entrypoint: ./docker-entrypoint.sh
 
   database:
     image: postgres:12.2
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: <%= ENV['DATABASE_PASSWORD'] %>
-      POSTGRES_USER: <%= ENV['DATABASE_USER'] %>
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
 
   redis:
     image: redis:5.0.7
@@ -43,7 +43,7 @@ services:
     env_file: .env
     environment:
       RAILS_ENV: development
-    entrypoint: ./entrypoints/sidekiq-entrypoint.sh
+    entrypoint: ./sidekiq-entrypoint.sh
 
 volumes:
   gem_cache:
