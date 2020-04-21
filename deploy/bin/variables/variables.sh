@@ -1,6 +1,0 @@
-#!/bin/bash
-
-export REGION="us-east-2"
-export AWS_ACCESS_KEY_ID="AKIA3JSZ6LHYC4NSJAH4"
-export AWS_SECRET_ACCESS_KEY="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"
-export ECR_ID="776503974384"
