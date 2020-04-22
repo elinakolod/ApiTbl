@@ -1,11 +1,9 @@
 module Types
   class QueryType < Types::BaseObject
-    field :user, UserType, null: true do
-      argument :id, ID, required: true
-    end
+    field :user, UserType, null: true
 
-    def user(id:)
-      User.find(id)
+    def user
+      context[:current_user]
     end
   end
 end

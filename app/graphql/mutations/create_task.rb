@@ -7,7 +7,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(name:, project_id:)
-      result = ::Api::V1::Tasks::Operation::Create.call(params: { name: name, project_id: project_id})
+      result = ::Api::V1::Tasks::Operation::Create.call(params: { name: name, project_id: project_id},
+                                                        current_user: context[:current_user])
       if result.success?
         {
           task: result[:model],
@@ -15,7 +16,6 @@ module Mutations
         }
       elsif result.failure?
         {
-          task: nil,
           errors: result['contract.default'].errors.messages
         }
       end

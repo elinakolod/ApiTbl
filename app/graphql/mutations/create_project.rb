@@ -14,7 +14,6 @@ module Mutations
         }
       elsif result.failure?
         {
-          project: nil,
           errors: result['contract.default'].errors.messages
         }
       end

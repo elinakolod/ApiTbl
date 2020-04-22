@@ -4,7 +4,7 @@ module Api
       class Create < Trailblazer::Operation
         step Model(Comment, :new)
         step :set_task
-        #step Policy::Pundit(CommentPolicy, :create?)
+        step Policy::Pundit(CommentPolicy, :create?)
         step Contract::Build(constant: Comments::Contract::Create)
         step Contract::Validate()
         step Contract::Persist()

@@ -7,7 +7,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:, name:)
-      result = ::Api::V1::Projects::Operation::Update.call(params: { id: id, name: name})
+      result = ::Api::V1::Projects::Operation::Update.call(params: { id: id, name: name},
+                                                           current_user: context[:current_user])
       if result.success?
         {
           project: result[:model],

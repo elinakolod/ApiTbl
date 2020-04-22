@@ -9,7 +9,7 @@ RSpec.describe 'All user projects', type: :request do
   let(:query) do
     <<-GRAPHQL
         query {
-          user(id: "#{user.id}") {
+          user {
             email
             projects {
               name

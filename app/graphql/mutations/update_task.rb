@@ -8,7 +8,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:, name:, done:)
-      result = ::Api::V1::Tasks::Operation::Update.call(params: { id: id, name: name, done: done})
+      result = ::Api::V1::Tasks::Operation::Update.call(params: { id: id, name: name, done: done},
+                                                        current_user: context[:current_user])
       if result.success?
         {
           task: result[:model],

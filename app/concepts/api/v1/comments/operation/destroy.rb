@@ -3,7 +3,7 @@ module Api
     module Comments::Operation
       class Destroy < Trailblazer::Operation
         step Model(Comment, :find_by)
-        #step Policy::Pundit(CommentPolicy, :destroy?)
+        step Policy::Pundit(CommentPolicy, :destroy?)
         step :destroy!
 
         def destroy!(_ctx, model:, **)

@@ -7,7 +7,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(body:, task_id:)
-      result = ::Api::V1::Comments::Operation::Create.call(params: { body: body, task_id: task_id})
+      result = ::Api::V1::Comments::Operation::Create.call(params: { body: body, task_id: task_id},
+                                                           current_user: context[:current_user])
       if result.success?
         {
           comment: result[:model],
@@ -15,7 +16,6 @@ module Mutations
         }
       elsif result.failure?
         {
-          comment: nil,
           errors: result['contract.default'].errors.messages
         }
       end

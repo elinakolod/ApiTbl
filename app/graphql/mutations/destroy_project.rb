@@ -6,7 +6,7 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:)
-      result = ::Api::V1::Projects::Operation::Destroy.call(params: { id: id })
+      result = ::Api::V1::Projects::Operation::Destroy.call(params: { id: id }, current_user: context[:current_user])
       if result.success?
         {
           project_id: id,
@@ -14,7 +14,6 @@ module Mutations
         }
       elsif result.failure? && result[:model].blank?
         {
-          project_id: nil,
           errors: ['Doesn\'t exist']
         }
       end
