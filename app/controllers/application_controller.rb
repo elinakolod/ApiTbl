@@ -1,16 +1,11 @@
 class ApplicationController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
   include ActionController::Cookies
   include ActionController::RequestForgeryProtection
   include SimpleEndpoint::Controller
-  include JWTSessions::RailsAuthorization
   include Pundit
-  rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
 
   private
-
-  def current_user
-    @current_user ||= User.find(payload['user_id'])
-  end
 
   def default_handler
     {
@@ -37,9 +32,5 @@ class ApplicationController < ActionController::API
 
   def json_api_errors(messages)
     JsonApi::ErrorsConverter.new(messages: messages).call
-  end
-
-  def not_authorized
-    render json: { error: 'Not authorized' }, status: :unauthorized
   end
 end

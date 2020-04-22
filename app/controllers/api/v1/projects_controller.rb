@@ -1,8 +1,6 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
-      before_action :authorize_access_request!
-
       def index
         endpoint operation: Projects::Operation::Index,
                  options: { current_user: current_user }

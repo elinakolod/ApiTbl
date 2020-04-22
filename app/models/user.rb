@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  has_many :projects, dependent: :destroy
+  devise :database_authenticatable, :registerable, :validatable
 
-  has_secure_password
+  include DeviseTokenAuth::Concerns::User
+
+  has_many :projects, dependent: :destroy
 end
