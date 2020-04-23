@@ -8,7 +8,7 @@
 
 
 5.times do
-  user = User.create(email: FFaker::Internet.email, password: '123456')
+  user = User.create(first_name: FFaker::Lorem.word, last_name: FFaker::Lorem.word, email: FFaker::Internet.email, password: '123456')
   5.times do
     project = Project.create(name: FFaker::Lorem.word, user_id: user.id)
     5.times do
