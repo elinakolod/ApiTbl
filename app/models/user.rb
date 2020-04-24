@@ -16,7 +16,7 @@ class User < ApplicationRecord
     email: 'A',
     last_name: 'B',
     first_name: 'C'
-  }
+  }, using: { tsearch: { prefix: true, negation: true } }
 
   devise :database_authenticatable, :registerable, :validatable
 

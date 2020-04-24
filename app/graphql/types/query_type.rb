@@ -13,16 +13,10 @@ module Types
     field :find_projects_by_task_name, [Types::ProjectType], null: true do
       argument :task_name, String, required: true
     end
-    field :task_name_autocomplete, [Types::TaskType], null: true do
-      argument :name_prefix, String, required: true
-    end
-    field :task_name_stemming_search, [Types::TaskType], null: true do
-      argument :name, String, required: true
-    end
-    field :task_name_filter, [Types::TaskType], null: true do
-      argument :name, String, required: true
-    end
     field :comment_search, String, null: true do
+      argument :string, String, required: true
+    end
+    field :multisearch, [Types::MultiSearchType], null: true do
       argument :string, String, required: true
     end
 
@@ -46,16 +40,12 @@ module Types
       Project.search_by_task(task_name)
     end
 
-    def task_name_stemming_search(name:)
-      Task.stemming_search(name)
-    end
-
-    def task_name_filter(name:)
-      Task.name_filter(name)
-    end
-
     def comment_search(string:)
       Comment.search_any_word(string).with_pg_search_highlight.first.pg_search_highlight
+    end
+
+    def multisearch(string:)
+      PgSearch.multisearch(string)
     end
   end
 end
