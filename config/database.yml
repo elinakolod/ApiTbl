@@ -1,18 +1,21 @@
 default: &default
   adapter: postgresql
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  port: <%= ENV['DATABASE_PORT'] || '5432' %>
+  host: <%= ENV['DATABASE_HOST'] %>
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: todo
 
 test:
   <<: *default
-  database: todo_test
 
 production:
   <<: *default
-  database: todo_production
-  username: todo
-  password: '123456'
+
+staging:
+  <<: *default

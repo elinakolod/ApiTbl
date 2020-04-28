@@ -1,0 +1,248 @@
+[
+  {
+    "name": "web-server",
+    "image": "${web_server_ecr_repo}:staging",
+    "environment": [
+      {
+        "name": "STATIC_PATH",
+        "value": "/home/app_owner/${profile_name}/public"
+      }
+    ],
+    "mountPoints": [
+      {
+        "containerPath": "/home/app_owner/${profile_name}/public",
+        "sourceVolume": "public"
+      }
+    ],
+    "portMappings": [
+      {
+        "hostPort": 8080,
+        "containerPort": 8080,
+        "protocol": "tcp"
+      }
+    ],
+    "links": [
+      "web-app"
+    ],
+    "healthCheck": {
+      "command": [
+        "CMD-SHELL",
+        "ps ax | grep nginx | grep -v grep"
+      ],
+      "interval": 60,
+      "retries": 3,
+      "timeout": 5
+    },
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "staging"
+      }
+    }
+  },
+
+  {
+    "name": "web-app",
+    "image": "${server_app_ecr_repo}:staging",
+    "entryPoint": [
+      "./docker-entrypoint.sh"
+    ],
+    "command": [
+      "bin/rails",
+      "s",
+      "-b",
+      "0.0.0.0"
+    ],
+    "environment": [
+      {
+        "name": "RAILS_ENV",
+        "value": "staging"
+      },
+      {
+        "name": "DATABASE_URL",
+        "value": "postgresql://postgres:postgres@postgres:5432/${profile_name}_staging"
+      },
+      {
+        "name": "REDIS_URL",
+        "value": "redis://redis:6379"
+      },
+      {
+        "name": "RAILS_LOG_TO_STDOUT",
+        "value": "true"
+      },
+      {
+        "name": "STAGING_NAME",
+        "value": "${profile_name}"
+      }
+    ],
+    "mountPoints": [
+      {
+        "containerPath": "/home/app_owner/${profile_name}/public",
+        "sourceVolume": "public"
+      }
+    ],
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "protocol": "tcp"
+      }
+    ],
+    "links": [
+      "postgres",
+      "redis"
+    ],
+    "healthCheck": {
+      "command": [
+        "CMD-SHELL",
+        "curl -f http://localhost:3000/health || exit 1"
+      ],
+      "interval": 300,
+      "retries": 3,
+      "timeout": 60
+    },
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "staging"
+      }
+    }
+  },
+
+  {
+    "name": "worker-app",
+    "image": "${server_app_ecr_repo}:staging",
+    "command": [
+      "bundle",
+      "exec",
+      "sidekiq"
+    ],
+    "environment": [
+      {
+        "name": "RAILS_ENV",
+        "value": "staging"
+      },
+      {
+        "name": "DATABASE_URL",
+        "value": "postgresql://postgres:postgres@postgres:5432/${profile_name}_staging"
+      },
+      {
+        "name": "REDIS_URL",
+        "value": "redis://redis:6379"
+      },
+      {
+        "name": "RAILS_LOG_TO_STDOUT",
+        "value": "true"
+      }
+    ],
+    "portMappings": [],
+    "links": [
+      "postgres",
+      "redis"
+    ],
+    "healthCheck": {
+      "command": [
+        "CMD-SHELL",
+        "ps ax | grep sidekiq | grep -v grep || exit 1"
+      ],
+      "interval": 30,
+      "retries": 3,
+      "timeout": 5
+    },
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "staging"
+      }
+    }
+  },
+
+  {
+    "name": "postgres",
+    "image": "postgres:10",
+    "environment": [
+      {
+        "name": "POSTGRES_USER",
+        "value": "postgres"
+      },
+      {
+        "name": "POSRTGRES_PASSWORD",
+        "value": "postgres"
+      },
+      {
+        "name": "POSTGRES_HOST_AUTH_METHOD",
+        "value": "trust"
+      }
+    ],
+    "mountPoints": [
+      {
+        "containerPath": "/var/lib/postgresql/data",
+        "sourceVolume": "postgres"
+      }
+    ],
+    "portMappings": [
+      {
+        "hostPort": 5432,
+        "containerPort": 5432,
+        "protocol": "tcp"
+      }
+    ],
+    "healthCheck": {
+      "command": [
+        "CMD-SHELL",
+        "pg_isready -U postgres"
+      ],
+      "interval": 30,
+      "retries": 3,
+      "timeout": 5
+    },
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "staging"
+      }
+    }
+  },
+
+  {
+    "name": "redis",
+    "image": "redis:5-alpine",
+    "mountPoints": [
+      {
+        "containerPath": "/data",
+        "sourceVolume": "redis"
+      }
+    ],
+    "portMappings": [
+      {
+        "hostPort": 6379,
+        "containerPort": 6379,
+        "protocol": "tcp"
+      }
+    ],
+    "healthCheck": {
+      "command": [
+        "CMD-SHELL",
+        "redis-cli -h localhost ping"
+      ],
+      "interval": 30,
+      "retries": 3,
+      "timeout": 5
+    },
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${log_region}",
+        "awslogs-stream-prefix": "staging"
+      }
+    }
+  }
+]

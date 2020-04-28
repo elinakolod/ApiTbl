@@ -23,3 +23,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 config/application.yml
+.env
+.terraform
+/deploy/bin/variables/variables.sh
