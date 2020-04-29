@@ -5,6 +5,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'factory_bot'
 require 'airborne'
 require 'rspec/rails'
+require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
@@ -21,4 +22,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+  config.before(:each) do
+    Sidekiq::Worker.clear_all
+    Sidekiq::Testing.fake!
+  end
 end
