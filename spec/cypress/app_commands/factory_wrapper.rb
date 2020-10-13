@@ -53,6 +53,8 @@ class FactoryWrapper
   def load_entity_factory(entity_name)
     factory_options = factories_options.detect { |options| options[0] == entity_name }
     raise StandardError, "Factory has unresolve dependency #{entity_name}" if factory_options.blank?
-    create_factory(entity_name, factory_options[1..])
+    puts '++++++++++++++++++++++++++++++'
+    p factory_options
+    create_factory(entity_name, factory_options[1..-1])
   end
 end
