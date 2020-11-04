@@ -11,16 +11,16 @@ module Api::V1
                             value: tokens[:access],
                             httponly: true,
                             secure: Rails.env.production?)
-        render json: { csrf: tokens[:csrf] }
+        render json: { csrf: tokens[:csrf], user: user }
       else
-        render json: { error: user.errors.full_messages.join(' ') }, status: :unprocessable_entity
+        render json: { error: user.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
     private
 
     def user_params
-      params.permit(:email, :password, :password_confirmation)
+      params.permit(:first_name, :last_name, :email, :password)
     end
   end
 end

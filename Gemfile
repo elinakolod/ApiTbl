@@ -20,6 +20,7 @@ gem 'jsonapi-rails'
 gem 'jwt_sessions'
 gem 'jwt'
 gem 'rack-cors'
+gem 'redis'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

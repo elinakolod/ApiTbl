@@ -9,7 +9,8 @@ class ApplicationController < ActionController::API
   private
 
   def current_user
-    @current_user ||= User.find(payload['user_id'])
+    token = request_cookies[JWTSessions.cookie_by(:access)]
+    @current_user ||= User.find(payload['user_id']) if token.present?
   end
 
   def default_handler
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::API
       forbidden: ->(_result) { render json: { errors: [{ title: 'Forbidden', detail: 'Access Denied' }] }, status: :forbidden },
       not_found: ->(_result) { head :not_found },
       unauthorized: ->(result) { render json: json_api_errors(result['contract.default'].errors.messages), status: :unauthorized },
-      invalid: ->(result) { render json: json_api_errors(result['contract.default'].errors.messages), status: :unprocessable_entity }
+      invalid: ->(result) { render json: result['contract.default'].errors.messages, status: :unprocessable_entity }
     }
   end
 

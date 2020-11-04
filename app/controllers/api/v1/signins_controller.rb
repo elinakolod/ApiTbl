@@ -7,7 +7,7 @@ module Api::V1
         session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
         tokens = session.login
         cookies[JWTSessions.access_cookie] = { value: tokens[:access], httponly: true }
-        render json: { csrf: tokens[:csrf] }
+        render json: { csrf: tokens[:csrf], user: user }
       else
         not_authorized
       end
