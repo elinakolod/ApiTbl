@@ -72,6 +72,12 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    cypress-on-rails (1.8.0)
+      rack
+    database_cleaner (1.8.5)
+    database_cleaner-active_record (1.8.0)
+      activerecord
+      database_cleaner (~> 1.8.0)
     declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
@@ -232,6 +238,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.2.2)
     reform (2.2.4)
       disposable (>= 0.4.1)
       representable (>= 2.4.0, < 3.1.0)
@@ -333,6 +340,8 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
+  cypress-on-rails (~> 1.0)
+  database_cleaner-active_record
   devise
   dox
   dry-validation (= 0.11.1)
@@ -351,6 +360,7 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (~> 5.2.2)
+  redis
   rspec-rails
   rubocop
   simple_endpoint!
@@ -364,4 +374,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.6
+   1.17.3
